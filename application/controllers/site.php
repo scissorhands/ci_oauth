@@ -13,8 +13,10 @@ class Site extends CI_Controller {
 	}
 
 	public function index(){
-		$service = new Google_AnalyticsService($client);
-		$data['authUrl'] = $ticlient->createAuthUrl();;
+		$this->service = new Google_AnalyticsService($this->client);
+		$data['authUrl'] = $this->client->createAuthUrl();
+		/*
+		*/
 		$this->load->view('oauth/connect', $data);
 		/*
 		*/
@@ -22,8 +24,7 @@ class Site extends CI_Controller {
 
 	public function connected(){
 		print_r($_GET['code']);
-		echo "connected";
-		echo $code;
+		echo "<br />connected";
 	}
 }
 
