@@ -29,6 +29,23 @@ class Memberarea extends CI_Controller {
 
 	public function showstats(){
 		$selected_props = $this->input->post('web_properties');
+		$service = $this->get_analytics_service();
+		$html="";
+		foreach ($selected_props as $wp) {
+			$query = $service->data_ga->get(
+	          'ga:'.$wp,
+	          '2014-01-01',
+	          '2014-02-01',
+	          'ga:visits',
+	          array(
+	              'dimensions' => 'ga:source,ga:keyword',
+	              'sort' => '-ga:visits,ga:keyword',
+	              'max-results' => '25'));
+	      $html .= "<h1>" . $query['profileInfo']['profileName'] . "</h1>"
+	      . "<pre>Visitas: " . $query['totalsForAllResults']['ga:visits'] . "</pre>";
+		}
+		$data['html'] = $html;
+		print_r($data['html']);
 	}
 
 	public function get_view_data($title, $content, $args=null){

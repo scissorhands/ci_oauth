@@ -7,18 +7,23 @@
 
 	<div class="row">
 		<h1>Web Properties</h1>
-		<?php echo form_open('', 'id="la-data"'); ?>
-		<?php foreach ($web_properties['items'] as $wp) {?>
-			<?php if (isset($wp['defaultProfileId'])) { ?>
-			<div class="checkbox">
-				<label>
-				  <input type="checkbox" name="web_properties[]" value="<?php echo $wp['defaultProfileId'] ?>"> <?php echo $wp['name'] ?>
-				</label>
-			</div>
+		<div class="col-lg-6">
+			<?php echo form_open('', 'id="la-data"'); ?>
+			<?php foreach ($web_properties['items'] as $wp) {?>
+				<?php if (isset($wp['defaultProfileId'])) { ?>
+				<div class="checkbox">
+					<label>
+					  <input type="checkbox" name="web_properties[]" value="<?php echo $wp['defaultProfileId'] ?>"> <?php echo $wp['name'] ?>
+					</label>
+				</div>
+				<?php } ?>
 			<?php } ?>
-		<?php } ?>
-		<?php echo form_submit('submit', 'Enviar'); ?>
-		<?php echo form_close(); ?>
+			<?php echo form_submit('submit', 'Enviar'); ?>
+			<?php echo form_close(); ?>
+		</div>
+		<div class="col-lg-6">
+			<div id="response-container"></div>
+		</div>
 	</div>
 	
 </div>
@@ -26,9 +31,9 @@
 $( "#la-data" ).submit(function( event ) {
  event.preventDefault();
 
-$.post( "<?php echo base_url() ?>index.php/memberarea/showstats", $( "#la-data" ).serialize())
+$.post( "<?php echo base_url() ?>index.php/memberarea/showstats", $( "#la-data" ).serialize(), "json")
 .done(function(data) {
-console.log( data );
+	$("#response-container").html(data);
 })
 .fail(function() {
 alert( "error" );
