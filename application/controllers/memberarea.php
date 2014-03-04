@@ -20,6 +20,14 @@ class Memberarea extends CI_Controller {
 
 	public function index(){
 		$data = $this->get_view_data("Welcome to Members Area ;)", "members/home");
+
+		/*
+		*/
+		$accesstoken = $this->session->userdata('token');
+		$this->client->setAccessToken($accesstoken);
+		$this->service = new Google_AnalyticsService($this->client);
+		$data['accounts'] = $this->service->management_accounts->listManagementAccounts();
+
 		$this->load->view('template/loader', $data);
 	}
 
