@@ -13,18 +13,22 @@ class Site extends CI_Controller {
 	}
 
 	public function index(){
+		$data = $this->get_view_data("Connecting to OAuth 2.0", "oauth/connect");
+
 		$this->service = new Google_AnalyticsService($this->client);
 		$data['authUrl'] = $this->client->createAuthUrl();
-		/*
-		*/
-		$this->load->view('oauth/connect', $data);
-		/*
-		*/
+		$this->load->view('template/loader', $data);
 	}
 
 	public function connected(){
 		print_r($_GET['code']);
 		echo "<br />connected";
+	}
+
+	public function get_view_data($title, $content, $args=null){
+		$data['title'] = $title;
+		$data['content'] = $content;
+		return $data;
 	}
 }
 
