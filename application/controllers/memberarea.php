@@ -28,7 +28,6 @@ class Memberarea extends CI_Controller {
 		$data['content'] = $content;
 		return $data;
 	}
-
 }
 
 /* End of file memberarea.php */

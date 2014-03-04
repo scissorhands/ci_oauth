@@ -39,6 +39,12 @@ class Site extends CI_Controller {
 		$data['content'] = $content;
 		return $data;
 	}
+
+	public function logout(){
+		$this->session->unset_userdata('token');
+		$this->session->unset_userdata('is_logged_in');
+		redirect('index.php/site');
+	}
 }
 
 /* End of file site.php */
