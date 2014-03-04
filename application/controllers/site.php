@@ -9,7 +9,6 @@ class Site extends CI_Controller {
 		parent::__construct();
 		$this->client = new Google_Client();
 		$this->client->setApplicationName("Google Analytics PHP Starter Application");
-		
 	}
 
 	public function index(){
@@ -21,8 +20,18 @@ class Site extends CI_Controller {
 	}
 
 	public function connected(){
-		print_r($_GET['code']);
-		echo "<br />connected";
+		if(isset($_GET['code'])){
+			$this->client->authenticate();
+			$user_data = array(
+				'token' => $this->client->getAccessToken(),
+				'is_logged_in' => true
+			);
+  			$this->session->set_userdata( $user_data );
+  			redirect('index.php/memberarea');
+		}
+		else{
+			redirect('index.php/site/');
+		}
 	}
 
 	public function get_view_data($title, $content, $args=null){
