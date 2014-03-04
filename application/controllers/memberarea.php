@@ -21,9 +21,7 @@ class Memberarea extends CI_Controller {
 	public function index(){
 		$data = $this->get_view_data("Welcome to Members Area ;)", "members/home");
 
-		$accesstoken = $this->session->userdata('token');
-		$this->client->setAccessToken($accesstoken);
-		$service = new Google_AnalyticsService($this->client);
+		$service = $this->get_analytics_service();
 		$data['web_properties'] = $service->management_webproperties->listManagementWebproperties("~all");
 
 		$this->load->view('template/loader', $data);
@@ -31,13 +29,19 @@ class Memberarea extends CI_Controller {
 
 	public function showstats(){
 		$selected_props = $this->input->post('web_properties');
-		print_r($selected_props);
 	}
 
 	public function get_view_data($title, $content, $args=null){
 		$data['title'] = $title;
 		$data['content'] = $content;
 		return $data;
+	}
+	
+
+	public function get_analytics_service(){
+		$accesstoken = $this->session->userdata('token');
+		$this->client->setAccessToken($accesstoken);
+		return new Google_AnalyticsService($this->client);
 	}
 }
 
