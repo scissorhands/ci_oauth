@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<h3><?php echo $web_properties['username']; ?></h3>
+		<h3><?php echo $web_profiles['username']; ?></h3>
 		<?php echo anchor('index.php/site/logout', 'Destroy session', "class='btn btn-primary'"); ?>
 		<?php echo anchor('index.php/memberarea/site_stats', 'Show site stats', "class='btn btn-primary'"); ?>
 	</div>
@@ -9,14 +9,12 @@
 		<h1>Web Properties</h1>
 		<div class="col-lg-6">
 			<?php echo form_open('', 'id="la-data"'); ?>
-			<?php foreach ($web_properties['items'] as $wp) {?>
-				<?php if (isset($wp['defaultProfileId'])) { ?>
+			<?php foreach ($web_profiles['items'] as $wp) {?>
 				<div class="checkbox">
 					<label>
-					  <input type="checkbox" name="web_properties[]" value="<?php echo $wp['defaultProfileId'] ?>"> <?php echo $wp['name'] ?>
+					  <input type="checkbox" name="web_properties[]" value="<?php echo $wp['id'] ?>"> <?php echo $wp['name'] ?>
 					</label>
 				</div>
-				<?php } ?>
 			<?php } ?>
 			<?php echo form_submit('submit', 'Enviar'); ?>
 			<?php echo form_close(); ?>

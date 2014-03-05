@@ -22,7 +22,8 @@ class Memberarea extends CI_Controller {
 		$data = $this->get_view_data("Welcome to Members Area ;)", "members/home");
 
 		$service = $this->get_analytics_service();
-		$data['web_properties'] = $service->management_webproperties->listManagementWebproperties("~all");
+		$profiles = $service->management_profiles->listManagementProfiles("~all", "~all");
+		$data['web_profiles'] = $profiles;
 
 		$this->load->view('template/loader', $data);
 	}
