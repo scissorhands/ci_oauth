@@ -37,13 +37,13 @@ class Memberarea extends CI_Controller {
 	          'ga:'.$wp,
 	          '2014-01-01',
 	          '2014-02-01',
-	          'ga:visits',
+	          'ga:visits,ga:visitors,ga:avgTimeOnSite',
 	          array(
 	              'dimensions' => 'ga:source,ga:keyword',
 	              'sort' => '-ga:visits,ga:keyword',
 	              'max-results' => '25'));
 	      $html .= "<h1>" . $query['profileInfo']['profileName'] . "</h1>"
-	      . "<pre>Visitas: " . $query['totalsForAllResults']['ga:visits'] . "</pre>";
+	      . "<pre>Visitas: " . $query['totalsForAllResults']['ga:visits'] . " \nVisitors: " . $query['totalsForAllResults']['ga:visitors'] . " \navgTimeOnSite: " . $query['totalsForAllResults']['ga:avgTimeOnSite'] . "</pre>";
 		}
 		$data['html'] = $html;
 		print_r($data['html']);
